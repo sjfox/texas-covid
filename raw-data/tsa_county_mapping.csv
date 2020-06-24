@@ -124,8 +124,8 @@ J.,Midland/Odessa,Jeff Davis,48243
 R.,Galveston,Jefferson,48245
 T.,Laredo,Jim Hogg,48247
 U.,Corpus Christi,Jim Wells,48249
-D.,Abilene,Joes,48251
-E.,Dallas/Ft. Worth,Johnson,48253
+D.,Abilene,Jones,48253
+E.,Dallas/Ft. Worth,Johnson,48251
 P.,San Antonio,Karnes,48255
 E.,Dallas/Ft. Worth,Kaufman,48257
 P.,San Antonio,Kendall,48259
@@ -157,7 +157,7 @@ G.,Longview/Tyler,Marion,48315
 J.,Midland/Odessa,Martin,48317
 K.,San Angelo,Mason,48319
 Q.,Houston,Matagorda,48321
-P.,San Antonio,Maverick,48317
+P.,San Antonio,Maverick,48323
 K.,San Angelo,McCulloch,48307
 M.,Waco,McLennan,48309
 U.,Corpus Christi,McMullen,48311
@@ -188,7 +188,7 @@ J.,Midland/Odessa,Pecos,48371
 H.,Lufkin,Polk,48373
 A.,Amarillo,Potter,48375
 J.,Midland/Odessa,Presidio,48377
-G.,Longview/Tyler,Raines,48379
+G.,Longview/Tyler,Rains,48379
 A.,Amarillo,Randall,48381
 K.,San Angelo,Reagan,48383
 P.,San Antonio,Real,48385
