@@ -17,7 +17,8 @@ tsa_df %>%
   filter(tsa == "Statewide Total") %>% 
   ggplot(aes(date, hospitalizations)) + 
   geom_line() +
-  background_grid(major = "xy", minor = "xy")
+  background_grid(major = "xy", minor = "xy") +
+  labs(x = "", y = "Current hospitalized")
 
 
 tsa_df %>% 
@@ -27,20 +28,21 @@ tsa_df %>%
     facet_wrap(~tsa, scales = "free_y") +
     background_grid(major = "xy", minor = "xy") +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-          legend.position = "none")
+          legend.position = "none") +
+  labs(x = "", y = "Current hospitalized")
   
 tsa_df %>% 
   mutate(hospitalizations = hospitalizations + 1) %>% 
   filter(date == ymd("2020-06-01") | date == max(date)) %>% 
   spread(date, hospitalizations) %>% 
-  mutate(percent_change = (`2020-06-22` - `2020-06-01`) / `2020-06-01`,
-         trend = ifelse(percent_change > 0, "Increasing", "Decreasing")) %>% 
+  mutate(percent_change = (`2020-06-22`) / `2020-06-01`,
+         trend = ifelse(percent_change > 1, "Increasing", "Decreasing")) %>% 
   mutate(tsa_lab = forcats::fct_reorder(tsa, percent_change)) %>% 
   ggplot(aes(tsa_lab, percent_change, fill = trend)) + 
     geom_col() +
     scale_y_continuous(labels = scales::percent) +
-    geom_hline(yintercept = 0, lty = 2) +
-    labs(x = "TSA", y = "Percent change since June 1st") +
+    geom_hline(yintercept = 1, lty = 2) +
+    labs(x = "", y = "Change since June 1st") +
     scale_fill_brewer(type = "qual", palette = 2)  +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
           legend.position = "none") +
