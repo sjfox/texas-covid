@@ -5,6 +5,8 @@ library(cowplot)
 library(sf)
 theme_set(theme_cowplot())
 
+download.file(url = "https://www.dshs.texas.gov/coronavirus/TexasCOVID-19HospitalizationsOverTimebyTSA.xlsx",
+              destfile = "raw-data/tsa_hospitalizations/Texas COVID-19 Hospitalizations by TSA.xlsx")
 
 first_date <- ymd("2020-04-08")
 tsa_df <- readxl::read_xlsx("raw-data/tsa_hospitalizations/Texas COVID-19 Hospitalizations by TSA.xlsx", skip = 2) %>% 
@@ -24,6 +26,7 @@ tsa_df %>%
 
 tsa_df %>% 
   filter(tsa != "Statewide Total") %>% 
+  filter(date >= max(date) - days(14)) %>% 
   ggplot(aes(date, hospitalizations)) + 
     geom_line() +
     facet_wrap(~tsa, scales = "free_y") +
@@ -59,8 +62,11 @@ tx_mappings <- read_csv("raw-data/tsa_county_mapping.csv", col_types = "cccc")
 
 usmap::us_map("counties") %>% 
   inner_join(tx_mappings, c("fips")) %>% 
-  left_join(tsa_growth, by = c("tsa_name" = "tsa")) %>% 
-  ggplot(aes(x,y, group = fips, fill = percent_change)) + 
+  left_join(tsa_growth, by = c("tsa_name" = "tsa")) -> cty_df
+
+
+cty_df %>% 
+  ggplot(aes(x,y, group = group, fill = percent_change)) + 
     geom_polygon() +
     theme_map() +
     scale_fill_viridis_c(labels = scales::percent) 
